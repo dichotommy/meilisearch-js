@@ -51,10 +51,10 @@ export type FacetFilter = Array<string | string[]>
 export interface SearchParams<T> {
   offset?: number
   limit?: number
-  attributesToRetrieve?: Array<Extract<keyof T, string> | '*'>
-  attributesToCrop?: Array<Extract<keyof T, string> | '*'>
+  attributesToRetrieve?: Array<Extract<keyof T, string> | ['*']>
+  attributesToCrop?: Array<Extract<keyof T, string> | ['*']>
   cropLength?: number
-  attributesToHighlight?: Array<Extract<keyof T, string> | '*'>
+  attributesToHighlight?: Array<Extract<keyof T, string> | ['*']>
   filters?: string
   facetFilters?: FacetFilter | FacetFilter[]
   facetsDistribution?: string[]
@@ -89,26 +89,38 @@ export interface GetSearchRequest {
   matches?: boolean
 }
 
-export type Hit<T> = T & { _formatted?: T }
-
 export type CategoriesDistribution = {
   [category: string]: number
 }
 
 export type Facet = string
+export type FacetsDistribution = Record<Facet, CategoriesDistribution>
+export type _matchesInfo<T> = Partial<
+  Record<keyof T, Array<{ start: number; length: number }>>
+>
+
+export type Hit<T> = T & {
+  _formatted?: T
+  _matchesInfo?: _matchesInfo<T>
+}
+
+export type Hits<
+  T,
+  P extends SearchParams<T>
+> = P['attributesToRetrieve'] extends Array<infer K> // if P['attributesToRetrieve'] is an array, we use `infer K` to extract the keys in the array in place
+  ? Array<Hit<Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>>> // Same extraction method as above when we have a single `attributesToRetrieve`
+  : Array<Hit<T>> // Finally return the full type as `attributesToRetrieve` is neither a single key nor an array of keys
 
 // The second generic P is used to capture the SearchParams type
 export interface SearchResponse<T, P extends SearchParams<T>> {
   // P represents the SearchParams
   // and by using the indexer P['attributesToRetrieve'], we're able to pick the type of `attributesToRetrieve`
   // and check whether the attribute is a single key present in the generic
-  hits: P['attributesToRetrieve'] extends Array<infer K> // if P['attributesToRetrieve'] is an array, we use `infer K` to extract the keys in the array in place
-    ? Array<Hit<Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>>> // Same extraction method as above when we have a single `attributesToRetrieve`
-    : Array<Hit<T>> // Finally return the full type as `attributesToRetrieve` is neither a single key nor an array of keys
+  hits: Hits<T, P>
   offset: number
   limit: number
   processingTimeMs: number
-  facetsDistribution?: Record<Facet, CategoriesDistribution>
+  facetsDistribution?: FacetsDistribution
   exhaustiveFacetsCount?: boolean
   query: string
   nbHits: number

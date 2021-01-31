@@ -3,13 +3,13 @@
       "baseUrl": "",
       "strict": true,
       "lib": [
-          "esnext",
+          "ES2020",
           "dom" // Added to get Request type error
       ],
       "module": "commonjs",
       "moduleResolution": "node",
       "outDir": "./dist",
-      "target": "es2020",
+      "target": "ES2019",
       "typeRoots": [
         "node_modules/@types"
       ]

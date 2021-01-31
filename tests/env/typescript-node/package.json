@@ -4,7 +4,8 @@
   "description": "Demo typescrypt node",
   "main": "index.js",
   "scripts": {
-    "build": "tsc --project tsconfig.json"
+    "build": "tsc --project tsconfig.json",
+    "start": "tsc --project tsconfig.json && node dist/index.js"
   },
   "keywords": [
     "demo",
