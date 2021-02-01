@@ -1,15 +1,4 @@
-// import * as Types from '../src/types'
-import {
-  // MeiliSearch,
-  // IndexResponse,
-  // SearchResponse,
-  // Hits,
-  // Hit,
-  // SearchParams,
-  Methods,
-  EnqueuedUpdate,
-  ErrorStatusCode,
-} from '../src/types'
+import { Methods, EnqueuedUpdate, ErrorStatusCode } from '../src/types'
 import {
   clearAllIndexes,
   config,
