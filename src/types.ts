@@ -51,10 +51,10 @@ export type FacetFilter = Array<string | string[]>
 export interface SearchParams<T> {
   offset?: number
   limit?: number
-  attributesToRetrieve?: Array<Extract<keyof T, string> | ['*']>
-  attributesToCrop?: Array<Extract<keyof T, string> | ['*']>
+  attributesToRetrieve?: Array<Extract<keyof T, string> | '*'>
+  attributesToCrop?: Array<Extract<keyof T, string> | '*'>
   cropLength?: number
-  attributesToHighlight?: Array<Extract<keyof T, string> | ['*']>
+  attributesToHighlight?: Array<Extract<keyof T, string> | '*'>
   filters?: string
   facetFilters?: FacetFilter | FacetFilter[]
   facetsDistribution?: string[]
@@ -100,14 +100,16 @@ export type _matchesInfo<T> = Partial<
 >
 
 export type Hit<T> = T & {
-  _formatted?: T
+  _formatted?: Partial<T> // SHOULD BE IMPROVED !
   _matchesInfo?: _matchesInfo<T>
 }
 
 export type Hits<
   T,
   P extends SearchParams<T>
-> = P['attributesToRetrieve'] extends Array<infer K> // if P['attributesToRetrieve'] is an array, we use `infer K` to extract the keys in the array in place
+> = P['attributesToRetrieve'] extends Array<'*'>
+  ? Array<Hit<T>>
+  : P['attributesToRetrieve'] extends Array<infer K> // if P['attributesToRetrieve'] is an array, we use `infer K` to extract the keys in the array in place
   ? Array<Hit<Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>>> // Same extraction method as above when we have a single `attributesToRetrieve`
   : Array<Hit<T>> // Finally return the full type as `attributesToRetrieve` is neither a single key nor an array of keys
 
