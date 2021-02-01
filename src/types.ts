@@ -254,7 +254,7 @@ export interface MeiliSearchInterface {
     uid: string,
     options?: IndexOptions
   ) => Promise<Index<T>>
-  deleteIndex: <T = any>(uid: string) => Promise<void>
+  deleteIndex: (uid: string) => Promise<void>
   getKeys: () => Promise<Keys>
   isHealthy: () => Promise<true>
   stats: () => Promise<Stats>

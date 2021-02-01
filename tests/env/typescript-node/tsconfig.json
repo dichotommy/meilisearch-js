@@ -1,18 +1,17 @@
 {
+  "extends": "../../../tsconfig.json",
   "compilerOptions": {
       "baseUrl": "",
-      "strict": true,
       "lib": [
-          "ES2020",
-          "dom" // Added to get Request type error
-      ],
+        "ES2020",
+        "dom" // Added to get Request type error
+    ],
       "module": "commonjs",
       "moduleResolution": "node",
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
       "outDir": "./dist",
-      "target": "ES2019",
-      "typeRoots": [
-        "node_modules/@types"
-      ]
+      // "target": "ES2019",
   },
   "files": [
       "src/index.ts"

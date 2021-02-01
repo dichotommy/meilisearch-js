@@ -220,9 +220,9 @@ describe.each([
           )
           expect(response.query === 'prince').toBeTruthy()
           expect(
-            response.hits[0]?._formatted.title === 'Petit <em>Prince</em>'
+            response.hits[0]?._formatted?.title === 'Petit <em>Prince</em>'
           ).toBeTruthy()
-          expect(response.hits[0]._formatted.id).toEqual(456)
+          expect(response.hits[0]._formatted?.id).toEqual(456)
           expect(response.hits[0]).not.toHaveProperty('comment')
           expect(response.hits[0]).not.toHaveProperty('description')
           expect(response.hits[0]._formatted).not.toHaveProperty('comment')
@@ -263,10 +263,10 @@ describe.each([
           expect(response.query === 'prince').toBeTruthy()
           expect(response.hits[0]?.title === 'Le Petit Prince').toBeTruthy()
           expect(
-            response.hits[0]?._matchesInfo?.title[0].start === 6
+            response.hits[0]?._matchesInfo?.title?.[0]?.start === 6
           ).toBeTruthy()
           expect(
-            response.hits[0]?._matchesInfo?.title[0].length === 6
+            response.hits[0]?._matchesInfo?.title?.[0]?.length === 6
           ).toBeTruthy()
           expect(
             response.hits[0]?._formatted?.title === 'Petit <em>Prince</em>'
@@ -308,10 +308,10 @@ describe.each([
 
           expect(response.hits[0]?.title === 'Le Petit Prince').toBeTruthy()
           expect(
-            response.hits[0]?._matchesInfo?.title[0].start === 6
+            response.hits[0]?._matchesInfo?.title?.[0]?.start === 6
           ).toBeTruthy()
           expect(
-            response.hits[0]?._matchesInfo?.title[0].length === 6
+            response.hits[0]?._matchesInfo?.title?.[0]?.length === 6
           ).toBeTruthy()
           expect(
             response.hits[0]?._formatted?.title === 'Petit <em>Prince</em>'
@@ -336,10 +336,14 @@ describe.each([
           method
         )
         .then((response) => {
-          expect(response.facetsDistribution.genre.adventure === 0).toBeTruthy()
-          expect(response.facetsDistribution.genre.fantasy === 0).toBeTruthy()
-          expect(response.facetsDistribution.genre.romance === 2).toBeTruthy()
-          expect(response.facetsDistribution.genre['sci fi'] === 0).toBeTruthy()
+          expect(
+            response.facetsDistribution?.genre?.adventure === 0
+          ).toBeTruthy()
+          expect(response.facetsDistribution?.genre?.fantasy === 0).toBeTruthy()
+          expect(response.facetsDistribution?.genre?.romance === 2).toBeTruthy()
+          expect(
+            response.facetsDistribution?.genre['sci fi'] === 0
+          ).toBeTruthy()
           expect(response.exhaustiveFacetsCount === true).toBeTruthy()
           expect(response.hits.length === 2).toBeTruthy()
         })
@@ -373,10 +377,14 @@ describe.each([
           method
         )
         .then((response) => {
-          expect(response.facetsDistribution.genre.adventure === 0).toBeTruthy()
-          expect(response.facetsDistribution.genre.fantasy === 0).toBeTruthy()
-          expect(response.facetsDistribution.genre.romance === 2).toBeTruthy()
-          expect(response.facetsDistribution.genre['sci fi'] === 0).toBeTruthy()
+          expect(
+            response.facetsDistribution?.genre?.adventure === 0
+          ).toBeTruthy()
+          expect(response.facetsDistribution?.genre?.fantasy === 0).toBeTruthy()
+          expect(response.facetsDistribution?.genre?.romance === 2).toBeTruthy()
+          expect(
+            response.facetsDistribution?.genre['sci fi'] === 0
+          ).toBeTruthy()
           expect(response.exhaustiveFacetsCount === true).toBeTruthy()
           expect(response.hits.length === 2).toBeTruthy()
         })
@@ -394,10 +402,14 @@ describe.each([
           method
         )
         .then((response) => {
-          expect(response.facetsDistribution.genre.adventure === 0).toBeTruthy()
-          expect(response.facetsDistribution.genre.fantasy === 2).toBeTruthy()
-          expect(response.facetsDistribution.genre.romance === 0).toBeTruthy()
-          expect(response.facetsDistribution.genre['sci fi'] === 0).toBeTruthy()
+          expect(
+            response.facetsDistribution?.genre?.adventure === 0
+          ).toBeTruthy()
+          expect(response.facetsDistribution?.genre?.fantasy === 2).toBeTruthy()
+          expect(response.facetsDistribution?.genre?.romance === 0).toBeTruthy()
+          expect(
+            response.facetsDistribution?.genre['sci fi'] === 0
+          ).toBeTruthy()
           expect(response.exhaustiveFacetsCount === true).toBeTruthy()
           expect(response.hits.length === 2).toBeTruthy()
         })
@@ -415,10 +427,14 @@ describe.each([
           method
         )
         .then((response) => {
-          expect(response.facetsDistribution.genre.adventure === 0).toBeTruthy()
-          expect(response.facetsDistribution.genre.fantasy === 2).toBeTruthy()
-          expect(response.facetsDistribution.genre.romance === 0).toBeTruthy()
-          expect(response.facetsDistribution.genre['sci fi'] === 0).toBeTruthy()
+          expect(
+            response.facetsDistribution?.genre?.adventure === 0
+          ).toBeTruthy()
+          expect(response.facetsDistribution?.genre?.fantasy === 2).toBeTruthy()
+          expect(response.facetsDistribution?.genre?.romance === 0).toBeTruthy()
+          expect(
+            response.facetsDistribution?.genre['sci fi'] === 0
+          ).toBeTruthy()
           expect(response.exhaustiveFacetsCount === true).toBeTruthy()
           expect(response.hits.length === 2).toBeTruthy()
         })
