@@ -1,5 +1,5 @@
 {
-  "name": "meilisearch",
+  "name": "meilisearch3",
   "version": "0.18.0",
   "description": "The MeiliSearch JS client for Node.js and the browser.",
   "keywords": [
@@ -59,7 +59,8 @@
     ]
   },
   "dependencies": {
-    "cross-fetch": "^3.0.5"
+    "cross-fetch": "^3.0.5",
+    "meilisearch2": "./meilisearch2-0.18.0.tgz"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.11.0",

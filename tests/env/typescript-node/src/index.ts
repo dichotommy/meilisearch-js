@@ -15,7 +15,8 @@ interface Movie {
 const client = new MeiliSearch(config)
 
 ;(async () => {
-  const index = await client.createIndex<Movie>('movies')
+  const index = await client.getOrCreateIndex<Movie>('movies')
+  const index2 = await client.getOrCreateIndex('movies')
 
 
   const indexes = await client.listIndexes()
@@ -32,10 +33,14 @@ const client = new MeiliSearch(config)
   }
   indexes.map((index: IndexResponse) => index.uid)
   const res: SearchResponse<Movie, SearchParams<Movie> > =  await index.search("avenger", searchParams)
+  const res2: SearchResponse =  await index2.search("avenger", searchParams)
 
   // both work
   const { hits } : { hits: Hits<Movie, typeof searchParams> } = res;
   // const { hits } : { hits: Hits<Movie, SearchParams<Movie>> } = res;
+
+  const { hits: notTypesHits } : { hits: Hits } = res2; // also works without types
+  console.log(notTypesHits)
 
   hits.map((hit: Hit<Movie>) => {
     console.log(hit?.genre)

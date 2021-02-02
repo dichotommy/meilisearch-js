@@ -71,7 +71,7 @@ class HttpRequests {
     config?: Partial<Request>
   ): Promise<void>
 
-  async get<T = any>(
+  async get<T = Record<string, any>>(
     url: string,
     params?: { [key: string]: any },
     config?: Partial<Request>
@@ -97,7 +97,7 @@ class HttpRequests {
     config?: Partial<Request>
   ): Promise<Types.IndexResponse>
 
-  async post<T = any, R = Types.EnqueuedUpdate>(
+  async post<T = Record<string, any>> R = Types.EnqueuedUpdate>(
     url: string,
     data?: T,
     params?: { [key: string]: any },
@@ -126,7 +126,7 @@ class HttpRequests {
     config?: Partial<Request>
   ): Promise<Types.IndexResponse>
 
-  async put<T = any, R = Types.EnqueuedUpdate>(
+  async put<T = Record<string, any>> R = Types.EnqueuedUpdate>(
     url: string,
     data?: T,
     params?: { [key: string]: any },

@@ -356,7 +356,7 @@ class Index<T> implements Types.IndexInterface<T> {
    * @memberof Index
    * @method create
    */
-  static async create<T = any>(
+  static async create<T = Record<string, any>>(
     config: Types.Config,
     uid: string,
     options: Types.IndexOptions = {}

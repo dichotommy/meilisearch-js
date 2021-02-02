@@ -48,7 +48,7 @@ export interface AddDocumentParams {
 
 export type FacetFilter = Array<string | string[]>
 
-export interface SearchParams<T> {
+export interface SearchParams<T = Record<string, any>> {
   offset?: number
   limit?: number
   attributesToRetrieve?: Array<Extract<keyof T, string> | '*'>
@@ -95,18 +95,18 @@ export type CategoriesDistribution = {
 
 export type Facet = string
 export type FacetsDistribution = Record<Facet, CategoriesDistribution>
-export type _matchesInfo<T> = Partial<
+export type _matchesInfo<T = Record<string, any>> = Partial<
   Record<keyof T, Array<{ start: number; length: number }>>
 >
 
-export type Hit<T> = T & {
+export type Hit<T = Record<string, any>> = T & {
   _formatted?: Partial<T> // SHOULD BE IMPROVED !
   _matchesInfo?: _matchesInfo<T>
 }
 
 export type Hits<
-  T,
-  P extends SearchParams<T>
+  T = Record<string, any>,
+  P extends SearchParams<T> = Record<string, any>
 > = P['attributesToRetrieve'] extends Array<'*'>
   ? Array<Hit<T>>
   : P['attributesToRetrieve'] extends Array<infer K> // if P['attributesToRetrieve'] is an array, we use `infer K` to extract the keys in the array in place
@@ -114,7 +114,10 @@ export type Hits<
   : Array<Hit<T>> // Finally return the full type as `attributesToRetrieve` is neither a single key nor an array of keys
 
 // The second generic P is used to capture the SearchParams type
-export interface SearchResponse<T, P extends SearchParams<T>> {
+export interface SearchResponse<
+  T = Record<string, any>,
+  P extends SearchParams<T> = Record<string, any>
+> {
   // P represents the SearchParams
   // and by using the indexer P['attributesToRetrieve'], we're able to pick the type of `attributesToRetrieve`
   // and check whether the attribute is a single key present in the generic
@@ -136,7 +139,7 @@ export interface FieldsDistribution {
 /*
  ** Documents
  */
-export interface GetDocumentsParams<T> {
+export interface GetDocumentsParams<T = Record<string, any>> {
   offset?: number
   limit?: number
   attributesToRetrieve?:
@@ -145,8 +148,8 @@ export interface GetDocumentsParams<T> {
 }
 
 export type GetDocumentsResponse<
-  T,
-  P extends GetDocumentsParams<T>
+  T = Record<string, any>,
+  P extends GetDocumentsParams<T> = any
 > = P['attributesToRetrieve'] extends keyof T
   ? Array<
       Document<
@@ -250,7 +253,7 @@ export interface MeiliSearchInterface {
   ) => Promise<Index<T>>
   listIndexes: () => Promise<IndexResponse[]>
   createIndex: <T>(uid: string, options?: IndexOptions) => Promise<Index<T>>
-  updateIndex: <T = any>(
+  updateIndex: <T = Record<string, any>>(
     uid: string,
     options?: IndexOptions
   ) => Promise<Index<T>>
@@ -265,11 +268,11 @@ export interface MeiliSearchInterface {
 
 export type Methods = 'POST' | 'GET'
 
-export interface IndexInterface<T = any> {
+export interface IndexInterface<T = Record<string, any>> {
   uid: string
   getUpdateStatus: (updateId: number) => Promise<Update>
   getAllUpdateStatus: () => Promise<Update[]>
-  search: <P extends SearchParams<T>>(
+  search: <P extends SearchParams<T> = Record<string, any>>(
     query?: string | null,
     options?: P,
     method?: Methods,

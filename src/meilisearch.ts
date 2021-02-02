@@ -53,7 +53,7 @@ export class MeiliSearch implements Types.MeiliSearchInterface {
    * @memberof MeiliSearch
    * @method index
    */
-  index<T = any>(indexUid: string): Index<T> {
+  index<T = Record<string, any>>(indexUid: string): Index<T> {
     return new Index<T>(this.config, indexUid)
   }
 
@@ -63,7 +63,7 @@ export class MeiliSearch implements Types.MeiliSearchInterface {
    * @memberof MeiliSearch
    * @method getIndex
    */
-  async getIndex<T = any>(indexUid: string): Promise<Index<T>> {
+  async getIndex<T = Record<string, any>>(indexUid: string): Promise<Index<T>> {
     return new Index<T>(this.config, indexUid).fetchInfo()
   }
 
@@ -72,7 +72,7 @@ export class MeiliSearch implements Types.MeiliSearchInterface {
    * @memberof MeiliSearch
    * @method getOrCreateIndex
    */
-  async getOrCreateIndex<T = any>(
+  async getOrCreateIndex<T = Record<string, any>>(
     uid: string,
     options: Types.IndexOptions = {}
   ): Promise<Index<T>> {
@@ -102,7 +102,7 @@ export class MeiliSearch implements Types.MeiliSearchInterface {
    * @memberof MeiliSearch
    * @method createIndex
    */
-  async createIndex<T = any>(
+  async createIndex<T = Record<string, any>>(
     uid: string,
     options: Types.IndexOptions = {}
   ): Promise<Index<T>> {
@@ -114,7 +114,7 @@ export class MeiliSearch implements Types.MeiliSearchInterface {
    * @memberof MeiliSearch
    * @method updateIndex
    */
-  async updateIndex<T = any>(
+  async updateIndex<T = Record<string, any>>(
     uid: string,
     options: Types.IndexOptions = {}
   ): Promise<Index<T>> {
